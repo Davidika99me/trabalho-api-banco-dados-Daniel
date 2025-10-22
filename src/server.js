@@ -3,6 +3,7 @@ import { app } from "./app.js"
 import cors from '@fastify/cors'
 import { conexaoMongo } from './services/mongodb/conexao.js'
 import { colecoesParaCriar } from './services/mongodb/seed-colecoes.js'
+import { syncMongoToMysql } from './services/sincronizar-mongo-mysql.js'
 
 async function server() {
     app.register(cors, {
@@ -20,6 +21,7 @@ async function server() {
 
     await conexaoMongo();
 
+    await syncMongoToMysql();
     // const query = await database('marcas').select();
     // console.log('Query :', query)
     // database.raw('SELECT * FROM marcas WHERE id = 1;')
